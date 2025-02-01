@@ -1,8 +1,11 @@
-module BUF(A, Y);
+module BUFFER(A, Y);
 
-    input A;
-    output Y;
+    input wire A;
+    output reg Y;
 
-    assign Y = ~(~A);
+    always @(*)
+        begin
+            Y = ~(~A);
+        end
 
 endmodule

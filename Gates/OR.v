@@ -1,11 +1,11 @@
-module INVERTER(A, Y);
+module OR_Gate(A, B, Y);
 
-    input wire A;
+    input wire A, B;
     output reg Y;
 
     always @(*)
         begin
-            Y = ~(A);
+            Y = (A | B);
         end
 
 endmodule
