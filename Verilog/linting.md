@@ -201,7 +201,7 @@ The issues are:
 process (clk)
     begin
         if(r1 = '1') then
-             out1 <= “0000";
+             out1 <= "0000";
         elsif (r2 = '1') then
             out1 <= "1111";
         elsif(clk'event and clk = '1') then
