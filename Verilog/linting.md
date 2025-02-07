@@ -125,7 +125,7 @@ The issue is that `a` and `b` are 8-bit vectors, but the `&&` operator is a logi
 
 ---
 
-## **Question 7**
+## **Question 6**
 
 ### Code:
 ```verilog
@@ -145,7 +145,7 @@ The issue is the mixing of blocking (`=`) and non-blocking (`<=`) assignments in
 
 ---
 
-## **Question 8**
+## **Question 7**
 
 ### Code:
 ```verilog
@@ -158,11 +158,13 @@ endmodule
 ```
 
 ### Explanation:
-The issue is the use of a non-blocking assignment (`<=`) in a combinational `always` block. Non-blocking assignments are intended for sequential logic. Use a blocking assignment (`=`) for combinational logic.
+**`out1` is a single-bit (`reg`) output assigned an 8-bit result (`a + b`):**
+   - `a` and `b` are 8-bit registers, so `a + b` is an 8-bit value.
+   - However, `out1` is a **1-bit signal**, so it will only capture the **least significant bit (LSB)** of the sum, leading to truncation of the remaining bits.
 
 ---
 
-## **Question 9**
+## **Question 8**
 
 ### Code:
 ```vhdl
@@ -171,25 +173,28 @@ signal sel: std_logic_vector(1 downto 0);
 Process (sel, A, B) begin
  case (sel) is
     when “00” =>
-        p1 <= A;     p2 =< A and B;
+        p1 <= A;
+        p2 =< A and B;
     when “01” =>
         p1 <= B;  
     when “10” =>
         p2 <= A;  
     when others =>
-        p1 <= ‘0’;       p2 =< ‘0’;
+        p1 <= ‘0’;
+        p2 =< ‘0’;
 End process;
 ```
 
 ### Explanation:
 The issues are:
-1. The use of smart quotes (`“”`) instead of standard double quotes (`"`).
-2. The incorrect assignment operator `=<` instead of `<=`.
-3. The case statement does not handle all possible values of `sel` explicitly, but the `others` clause covers this.
+1. The incorrect assignment operator `=<` instead of `<=`.
+2. **Potential incomplete assignments:**
+   - In VHDL, if `p1` and `p2` are not assigned in every branch of the `case` statement, it may result in **latch inference** (undesired memory behavior).
+   - Ensure that both `p1` and `p2` are assigned in every case.
 
 ---
 
-## **Question 10**
+## **Question 9**
 
 ### Code:
 ```vhdl
@@ -212,13 +217,12 @@ end;
 
 ### Explanation:
 The issues are:
-1. The use of smart quotes (`“”`) instead of standard double quotes (`"`).
-2. The sensitivity list is incomplete. It should include all signals that the process depends on (`r1`, `r2`, `sel`, `temp`, `in1`).
-3. The priority of conditions may not be as intended, as `r1` and `r2` are checked before the clock edge.
+1. The sensitivity list is incomplete. It should include all signals that the process depends on (`r1`, `r2`, `sel`, `temp`, `in1`).
+2. The priority of conditions may not be as intended, as `r1` and `r2` are checked before the clock edge.
 
 ---
 
-## **Bonus Question**
+## **Question 10**
 
 ### Code:
 ```verilog
