@@ -172,16 +172,16 @@ signal sel: std_logic_vector(1 downto 0);
 …
 Process (sel, A, B) begin
  case (sel) is
-    when “00” =>
+    when "00" =>
         p1 <= A;
-        p2 =< A and B;
-    when “01” =>
+        p2 <= A and B;
+    when "01" =>
         p1 <= B;  
-    when “10” =>
+    when "10" =>
         p2 <= A;  
     when others =>
-        p1 <= ‘0’;
-        p2 =< ‘0’;
+        p1 <= '0';
+        p2 =< '0';
 End process;
 ```
 
