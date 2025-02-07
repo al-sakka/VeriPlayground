@@ -6,11 +6,7 @@ module MUX_2_1
 
     always @(*)
     begin
-        case(SEL)
-            1'b00: Y = A;
-            1'b01: Y = B;
-            default: Y = 1'bx;  /* Don't Care */
-        endcase
+        Y = SEL ? B : A;
     end
 
 endmodule
