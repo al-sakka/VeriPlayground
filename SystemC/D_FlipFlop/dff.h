@@ -24,11 +24,11 @@ SC_MODULE(dff)
     {
         if (clr.read())
         {
-            dout.write(0);
+            dout.write(0);   // Output 0 when clear is active
         }
         else
         {
-            dout.write(S3.read()); // Q is S3
+            dout.write(S3.read());  // Q = S3
         }
     }
 
@@ -57,7 +57,7 @@ SC_MODULE(dff)
         n4.out(S4);
 
         // Output Q from n3
-        dout(S3);
+        // dout(S3);
 
         // Sensitivity to the positive edge of the clock
         SC_METHOD(dff_process);
